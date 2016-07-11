@@ -19,17 +19,17 @@
 
 		protected $dates = [ 'created_at', 'updated_at', 'deleted_at' ];
 
-		public function scopeEmirId($query, $type)
+		public function scopeProductionOrderId($query, $type)
 		{
 			return $query->where('production_order_id', $type);
 		}
 
-		public function scopeItemId($query, $type)
+		public function scopePartId($query, $type)
 		{
 			return $query->where('upper_part_id', $type);
 		}
 
-		public function getEmir()
+		public function getProductionOrder()
 		{
 			return $this->hasOne('KobiLab\Framework\Manufacturing\ProductionOrders', 'id', 'production_order_id');
 		}
@@ -39,12 +39,12 @@
 			return $this->hasOne('KobiLab\Framework\Production\Parts\Parts', 'id', 'part_id');
 		}
 
-		public function getUstItem()
+		public function getUpperPart()
 		{
 			return $this->hasOne('KobiLab\Framework\Production\Parts\Parts', 'id', 'upper_part_id');
 		}
 
-		public function getUygunLotlar()
+		public function getAvailableLots()
 		{
 			return $this->hasMany('KobiLab\Framework\Inventory\Lots', 'part_id', 'part_id')
 						->where('quantity', '>', 0);

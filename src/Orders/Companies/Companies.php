@@ -2,8 +2,6 @@
 
 	namespace KobiLab\Framework\Orders\Companies;
 
-	use KobiLab\Framework\General\General;
-
 	use KobiLab\Framework\General\Modification;
 	use KobiLab\Framework\General\SetData;
 	use KobiLab\Framework\General\Validation;
@@ -27,5 +25,15 @@
 		public $timestamps = true;
 
 		protected $dates = [ 'created_at', 'updated_at', 'deleted_at' ];
+
+		public function store()
+		{
+			return self::create($this->data);
+		}
+
+		public function updation()
+		{
+			return self::find($this->whichOne)->update($this->data);
+		}
 	
 	}

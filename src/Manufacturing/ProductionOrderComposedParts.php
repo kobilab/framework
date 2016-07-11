@@ -23,4 +23,9 @@
 		{
 			return $this->hasOne('KobiLab\Framework\Production\Parts\Parts', 'id', 'part_id');
 		}
+
+		public function getProductionOrder()
+		{
+			return $this->hasOne('KobiLab\Framework\Manufacturing\ProductionOrders', 'id', 'production_order_id');
+		}
 	}

@@ -27,4 +27,24 @@
 		public $timestamps = true;
 
 		protected $dates = [ 'created_at', 'updated_at', 'deleted_at' ];
+
+		public function store()
+		{
+			return self::create($this->data);
+		}
+
+		public function updation()
+		{
+			return self::find($this->whichOne)->update($this->data);
+		}
+
+		public function getOrder()
+		{
+			return $this->hasOne('KobiLab\Framework\Orders\Orders\Orders', 'id', 'order_id');
+		}
+
+		public function getPart()
+		{
+			return $this->hasOne('KobiLab\Framework\Production\Parts\Parts', 'id' ,'part_id');
+		}
 	}

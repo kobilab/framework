@@ -2,8 +2,6 @@
 
 	namespace KobiLab\Framework\Production\Parts;
 
-	use KobiLab\Framework\General\General;
-
 	use KobiLab\Framework\General\Modification;
 	use KobiLab\Framework\General\Validation;
 	use KobiLab\Framework\General\SetData;
@@ -32,21 +30,6 @@
 
 		protected $dates = [ 'created_at', 'updated_at', 'deleted_at' ];
 
-		/**
-		 * Yeni parça için gerekli olan ürün ağaçlarını dönderen method
-		 * 
-		 * @return Collection
-		 */
-		public function getBomsForNewOrEditNewPart()
-		{
-			return Boms::all();
-		}
-
-		/**
-		 * Parçayı kaydetmeye yarayan method
-		 * 
-		 * @return Collection
-		 */
 		public function store()
 		{
 			$id = parent::create($this->data);
@@ -67,12 +50,12 @@
 			return parent::find($this->whichOne)->update($this->data);
 		}
 
-		public function getBomlar()
+		public function getBoms()
 		{
 			return $this->hasMany('KobiLab\Framework\Production\PartBomRouteWorkTypeWorkCenter\PartBom', 'part_id', 'id');
 		}
 
-		public function getToplam()
+		public function getTotal()
 		{
 			return $this->hasOne('KobiLab\Framework\Inventory\Lots', 'part_id', 'id')
 						->selectRaw('SUM(`lots`.`quantity`) as sumOf');

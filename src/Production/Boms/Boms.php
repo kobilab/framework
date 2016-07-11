@@ -2,8 +2,6 @@
 
 	namespace KobiLab\Framework\Production\Boms;
 
-	use KobiLab\Framework\General\General;
-
 	use KobiLab\BomRoute;
 	use KobiLab\Routes;
 
@@ -13,7 +11,6 @@
 
 	use Illuminate\Database\Eloquent\Model;
 	use Illuminate\Database\Eloquent\SoftDeletes;
-
 
 	/**
 	 * Ürün ağaçları ile ilgili işlemleri yapmaya yarayan method
@@ -31,16 +28,6 @@
 		public $timestamps = true;
 
 		protected $dates = [ 'created_at', 'updated_at', 'deleted_at' ];
-
-		/**
-		 * Ürün ağacı eklemek veya düzenlemek için gerekli olan rotasyonları dönderen method
-		 * 
-		 * @return Collection
-		 */
-		public function getRoutesForNewOrEditNewBom()
-		{
-			return Routes::all();
-		}
 
 		/**
 		 * Ürün ağacını kaydeden method

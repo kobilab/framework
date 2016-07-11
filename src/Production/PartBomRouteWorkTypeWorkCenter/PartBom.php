@@ -30,29 +30,12 @@
 			return self::create($this->data);
 		}
 
-		public function removeBomFromPart($TablePartBomId)
+		public function updation()
 		{
-			TablePartBom::find($TablePartBomId)->delete();
+			return self::find($this->whichOne)->update($this->data);
 		}
 
-		public function makeFreeDefaultBomForPart($partId)
-		{
-			TablePartBom::where('part_id', $partId)->update(['default'=>1]);
-		}
-
-		public function makeBomDefaultForPart($partId, $bomId)
-		{
-			$this->makeFreeDefaultBomForPart($partId);
-
-			TablePartBom::where('part_id', $partId)->where('bom_id', $bomId)->first()->update(['default', 2]);
-		}
-
-		public function removeDefaultBomFromPart($partId, $bomId)
-		{
-			$this->makeFreeDefaultBomForPart($partId);
-		}
-
-		public function getItem()
+		public function getPart()
 		{
 			return $this->hasOne('KobiLab\Framework\Production\Parts\Parts', 'id', 'part_id');
 		}

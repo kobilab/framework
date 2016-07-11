@@ -2,15 +2,12 @@
 
 	namespace KobiLab\Framework\Production\Boms\Details;
 
-	use KobiLab\Framework\General\General;
-
 	use KobiLab\Framework\General\Modification;
 	use KobiLab\Framework\General\SetData;
 	use KobiLab\Framework\General\Validation;
 
 	use Illuminate\Database\Eloquent\Model;
 	use Illuminate\Database\Eloquent\SoftDeletes;
-
 
 	/**
 	 * Ürün ağacı oluşan parçalarla ilgilenen sınıf
@@ -60,8 +57,13 @@
 			}
 		}
 
-		public function getItem()
+		public function getPart()
 		{
 			return $this->hasOne('KobiLab\Framework\Production\Parts\Parts', 'id', 'part_id');
+		}
+
+		public function getBom()
+		{
+			return $this->hasOne('KobiLab\Framework\Production\Boms\Boms', 'id', 'bom_id');
 		}
 	}

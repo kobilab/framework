@@ -2,8 +2,6 @@
 
 	namespace KobiLab\Framework\Manufacturing;
 
-	use KobiLab\Framework\General\General;
-
 	use KobiLab\Framework\General\Modification;
 	use KobiLab\Framework\General\SetData;
 	use KobiLab\PredefineProductionOrder;
@@ -12,12 +10,9 @@
 	use Illuminate\Database\Eloquent\Model;
 	use Illuminate\Database\Eloquent\SoftDeletes;
 
-	/**
-	 * Üretim emirleri ile ilgili işlemleri yapan sınıf
-	 */
 	class ProductionOrders extends Model
 	{
-		use SetData, Validation, Modification;
+		use SetData, Validation, Modification, SoftDeletes;
 
 		protected $table = 'production_orders';
 
@@ -27,25 +22,8 @@
 
 		public $timestamps = true;
 
-		use SoftDeletes;
-
 		protected $dates = [ 'created_at', 'updated_at', 'deleted_at' ];
 		
-		/**
-		 * Üretim emri için gerekli olan parçaları dönderen method
-		 * 
-		 * @return Collection
-		 */
-		public function getPartsForNewProductionOrder()
-		{
-			return TablePartBom::where('default', 2)->groupBy('part_id')->get();
-		}
-
-		/**
-		 * Üretim emrini kaydetmeye yarayan method
-		 * 
-		 * @return Collection
-		 */
 		public function store()
 		{
 			$id = self::create($this->data);
@@ -55,11 +33,6 @@
 			return $id;
 		}
 
-		/**
-		 * Üretim emrindeki gerekli olan parçaları döndermeye yarayan method
-		 * 
-		 * @return array
-		 */
 		public function showNeededParts()
 		{
 			$find = TableProductionOrderNeededParts::where('production_order_id', $this->whichOne)->get();
@@ -73,11 +46,6 @@
 			return $sonuclar;
 		}
 
-		/**
-		 * Üretim emrindeki rotasyonları dönderen method
-		 * 
-		 * @return array
-		 */
 		public function showRotations()
 		{
 			$rotasyonIslemler = TableProductionOrderRotations::where('production_order_id', $this->whichOne)->get();
@@ -87,41 +55,6 @@
 			}
 
 			return $rotasyonlar;
-		}
-
-		/**
-		 * Üretim emrinin sonucu oluşacak olan parçaları dönderen method
-		 * 
-		 * @return array
-		 */
-		public function showComposedParts()
-		{
-			return TableProductionOrderComposedParts::where('production_order_id', $this->whichOne)->get();
-		}
-
-		/**
-		 * Üretim emrini incelemek için gerekli olan itemleri dönderen method
-		 * 
-		 * @return array
-		 */
-		public function take()
-		{
-			$data['gerekenMalzemeler'] = $this->showNeededParts();
-			$data['islemler'] = $this->showRotations();
-			$data['olusacaklar'] = $this->showComposedParts();
-			$data['detay'] = $this->get();
-
-			return $data;
-		}
-
-		/**
-		 * Üretim emrini silmeye yarayan method
-		 * 
-		 * @return boolean
-		 */
-		public function wipe()
-		{
-			return TableProductionOrders::find($this->whichOne)->delete();
 		}
 
 		public function getPart()

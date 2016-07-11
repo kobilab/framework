@@ -2,8 +2,6 @@
 
 	namespace KobiLab\Framework\Production\Boms\Details;
 
-	use KobiLab\Framework\General\General;
-
 	use KobiLab\Framework\General\Modification;
 	use KobiLab\Framework\General\SetData;
 	use KobiLab\Framework\General\Validation;
