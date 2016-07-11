@@ -1,5 +1,5 @@
 {
-    "name": "zahmetsizce/core",
+    "name": "kobilab/framework",
     "description": "The Laravel Lumen Framework.",
     "keywords": ["framework", "laravel", "lumen"],
     "license": "MIT",
@@ -53,7 +53,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Zahmetsizce\\": "src/"
+            "KobiLab\\Framework\\": "src/"
         },
         "files": [
             "helpers.php"
