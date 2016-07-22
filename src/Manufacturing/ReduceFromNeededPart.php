@@ -64,7 +64,7 @@
 			# Girlen değerin toplam değerini bulmamız lazım
 			# çünkü bu değer kat sayılarıyla çarpılarak doğruluğu kontrol edilecek
 			$total = 0;
-			foreach ($detail->getUygunLotlar as $e) {
+			foreach ($detail->getAvailableLots as $e) {
 				# Değer 0 değilse toplama ekleniyor.
 				if (Input::get($e['id'].'lot')!=0) {
 					$total = $total + Input::get($e['id'].'lot');
@@ -159,7 +159,7 @@
 				}
 
 				# Son olarak lotlardan düşme işlemi yapıyoruz.
-				foreach ($detail->getUygunLotlar as $e) {
+				foreach ($detail->getAvailableLots as $e) {
 					if (Input::get($e['id'].'lot')!=0) {
 						$e->update(['quantity'=>$e['quantity']-Input::get($e['id'].'lot')]);
 					}

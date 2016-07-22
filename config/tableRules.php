@@ -44,7 +44,7 @@
 				'part_id'	=> 'required'
 		],
 		'orders' => [
-				'order_code'	=> 'required|min:1|max:16|unique:Orders,order_code,:id,id,deleted_at,NULL',
+				'order_code'	=> 'required|min:1|max:16|unique:orders,order_code,:id,id,deleted_at,NULL',
 				'company_id'	=> 'required'
 		],
 		'order_detail_edit' => [

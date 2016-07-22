@@ -38,6 +38,6 @@
 
 		public function getCompany()
 		{
-			return $this->hasOne('KobiLab\Framework\Orders\Companies\Customers', 'id', 'company_id');
+			return $this->hasOne('KobiLab\Framework\Orders\Companies\Companies', 'id', 'company_id');
 		}
 	}
