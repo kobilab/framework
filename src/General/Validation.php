@@ -100,9 +100,14 @@
 		 * 
 		 * @return Collection
 		 */
-		public function errors()
+		public function getErrors()
 		{
 			return $this->validation->errors()->all();
+		}
+
+		public function getOld()
+		{
+			return $this->data;
 		}
 
 	}

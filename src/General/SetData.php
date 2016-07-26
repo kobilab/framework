@@ -23,6 +23,8 @@
 		 */
 		var $whichOne = null;
 
+		var $returns;
+
 		/**
 		 * Verilen değeri this->data ya eşitleyen method
 		 * 
@@ -65,6 +67,13 @@
 		public function setId($data)
 		{
 			$this->whichOne = $data;
+
+			return $this;
+		}
+
+		public function setIt($key, $value)
+		{
+			$this->data[$key] = $value;
 
 			return $this;
 		}

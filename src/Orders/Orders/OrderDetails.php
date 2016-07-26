@@ -6,6 +6,7 @@
 
 	use KobiLab\Framework\General\Modification;
 	use KobiLab\Framework\General\SetData;
+	use KobiLab\CheckOrderStatus;
 	use KobiLab\Framework\General\Validation;
 
 	use Illuminate\Database\Eloquent\Model;
@@ -22,7 +23,7 @@
 
 		protected $primaryKey = 'id';
 
-		protected $fillable = [ 'id', 'order_id', 'part_id', 'quantity' ];
+		protected $fillable = [ 'id', 'order_id', 'part_id', 'quantity', 'status', 'production_order_id' ];
 
 		public $timestamps = true;
 
@@ -35,6 +36,7 @@
 
 		public function updation()
 		{
+			CheckOrderStatus::fire($this->whichOne);
 			return self::find($this->whichOne)->update($this->data);
 		}
 
@@ -46,5 +48,10 @@
 		public function getPart()
 		{
 			return $this->hasOne('KobiLab\Framework\Production\Parts\Parts', 'id' ,'part_id');
+		}
+
+		public function getProductionOrder()
+		{
+			return $this->hasOne('KobiLab\Framework\Manufacturing\ProductionOrders', 'id', 'production_order_id');
 		}
 	}

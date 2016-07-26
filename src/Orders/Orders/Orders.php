@@ -20,7 +20,7 @@
 
 		protected $primaryKey = 'id';
 
-		protected $fillable = [ 'id', 'order_code', 'company_id' ];
+		protected $fillable = [ 'id', 'order_code', 'company_id', 'status' ];
 
 		public $timestamps = true;
 
@@ -39,5 +39,10 @@
 		public function getCompany()
 		{
 			return $this->hasOne('KobiLab\Framework\Orders\Companies\Companies', 'id', 'company_id');
+		}
+
+		public function getOrderDetails()
+		{
+			return $this->hasMany('KobiLab\Framework\Orders\Orders\OrderDetails', 'order_id', 'id');
 		}
 	}

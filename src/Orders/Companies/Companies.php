@@ -35,5 +35,10 @@
 		{
 			return self::find($this->whichOne)->update($this->data);
 		}
+
+		public function getOrders()
+		{
+			return $this->hasMany('KobiLab\Framework\Orders\Orders\Orders', 'company_id', 'id');
+		}
 	
 	}

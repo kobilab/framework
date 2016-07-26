@@ -24,7 +24,7 @@
 
 		protected $primaryKey = 'id';
 
-		protected $fillable = [ 'id', 'part_code', 'title' ];
+		protected $fillable = [ 'id', 'part_code', 'title', 'unit_id' ];
 
 		public $timestamps = true;
 
@@ -40,6 +40,17 @@
 					'bom_id'	=> $this->data['default_bom'],
 					'default'	=> 2
 				]);
+			}
+
+			if($this->data['copy']!=null) {
+				$boms = PartBom::where('part_id', $this->data['copy'])->get();
+				foreach($boms as $e) {
+					PartBom::create([
+						'part_id' => $id['id'],
+						'bom_id' => $e['bom_id'],
+						'default' => $e['default']
+					]);
+				}
 			}
 
 			return true;
@@ -59,6 +70,11 @@
 		{
 			return $this->hasOne('KobiLab\Framework\Inventory\Lots', 'part_id', 'id')
 						->selectRaw('SUM(`lots`.`quantity`) as sumOf');
+		}
+
+		public function getUnit()
+		{
+			return $this->hasOne('KobiLab\Framework\Production\Parts\Units', 'id', 'unit_id');
 		}
 
 	}

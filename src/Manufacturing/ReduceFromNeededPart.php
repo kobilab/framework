@@ -152,7 +152,7 @@
 						$values = [
 							'quantity' => $productionOrderComposedPart['quantity']-$null['available']
 						];
-						$productionOrderComposedPart->update($values);
+						//$productionOrderComposedPart->update($values);
 					}
 
 

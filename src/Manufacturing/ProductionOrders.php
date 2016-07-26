@@ -18,7 +18,7 @@
 
 		protected $primaryKey = 'id';
 
-		protected $fillable = [ 'production_order_code', 'part_id', 'quantity' ];
+		protected $fillable = [ 'production_order_code', 'part_id', 'quantity', 'customer_order_detail_id', 'notes' ];
 
 		public $timestamps = true;
 
@@ -28,9 +28,14 @@
 		{
 			$id = self::create($this->data);
 			
-			//PredefineProductionOrder::fire($id['id']);
+			PredefineProductionOrder::fire($id['id']);
 
 			return $id;
+		}
+
+		public function updation()
+		{
+			return parent::find($this->whichOne)->update($this->data);
 		}
 
 		public function showNeededParts()
@@ -60,5 +65,10 @@
 		public function getPart()
 		{
 			return $this->hasOne('KobiLab\Framework\Production\Parts\Parts', 'id', 'part_id');
+		}
+
+		public function getOrderDetail()
+		{
+			return $this->hasOne('KobiLab\Framework\Orders\Orders\OrderDetails','id', 'customer_order_detail_id');
 		}
 	}

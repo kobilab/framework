@@ -62,5 +62,11 @@
 		'orders' => [
 				'order_code'	=> 'Sipariş kodu',
 				'company_id'	=> 'Müşteri'
+		],
+		'order_detail_edit' => [
+			'quantity'	=> 'Adet'
+		],
+		'production_order_edit' => [
+			'production_order_code'=> 'Kodu',
 		]
 	];

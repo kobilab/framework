@@ -21,6 +21,7 @@
 	use KobiLab\ProductionOrders;
 	use KobiLab\ProductionOrderNeededParts;
 	use KobiLab\ProductionOrderRotations;
+	use KobiLab\Units;
 	use KobiLab\ProductionOrderComposedParts;
 	use KobiLab\Orders;
 	use KobiLab\OrderDetails;
@@ -53,7 +54,7 @@
 
     	var $routes = [];
 
-    	var $lotSayisi = 100;
+    	var $lotSayisi = 1000;
 
     	var $adetler = [ 1,2,3,4,5,10,20,25,30,50,100,250,500,600,1000,15,35,40,45,75,85,80,300,350 ];
 
@@ -78,6 +79,42 @@
     		}
 
     		$this->musteriler = $n;
+    	}
+
+    	public function createUnits()
+    	{
+    		$as = [
+    			[
+    				'title' => 'Santimetre',
+    				'short_form' => 'cm'
+    			],
+    			[
+    				'title' => 'Metre',
+    				'short_form' => 'm'
+    			],
+    			[
+    				'title' => 'Kilogram',
+    				'short_form' => 'kg'
+    			],
+    			[
+    				'title' => 'Gram',
+    				'short_form' => 'g'
+    			],
+    			[
+    				'title' => 'Takım',
+    				'short_form' => 'tk'
+    			],
+    			[
+    				'title' => 'Adet',
+    				'short_form' => 'ad'
+    			]
+    		];
+
+    		foreach($as as $e) {
+    			Units::create($e);
+				$this->kac++;
+				$this->info($this->kac);
+    		}
     	}
 
     	public function createOrders()
@@ -110,7 +147,8 @@
     				'id' => $rand,
     				'order_id' => array_column($this->siparisler, 'id')[rand(0, count($this->siparisler)-1)],
     				'part_id' => array_column($this->parts, 'id')[rand(0, count($this->parts)-1)],
-    				'quantity' => $this->adetler[rand(0, count($this->adetler)-1)]
+    				'quantity' => $this->adetler[rand(0, count($this->adetler)-1)],
+    				'status' => 1
     			];
 
     			OrderDetails::create($a);
@@ -157,7 +195,8 @@
 				$valuee = [
 					'id'		=> $rand,
 					'part_code'	=> 'P-' . $rand,
-					'title'		=> 'Parça ' . $key
+					'title'		=> 'Parça ' . $key,
+					'unit_id' => 6
 				];
 				$parts[$key] = $valuee;
 			}
@@ -512,6 +551,7 @@
 
 			$this->truncateAll();
 
+			$this->createUnits();
 			$this->createParts();
 			$this->createCompanies();
 			$this->createOrders();

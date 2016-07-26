@@ -49,5 +49,8 @@
 		],
 		'order_detail_edit' => [
 				'quantity' => 'required|numeric'
+		],
+		'production_order_edit' => [
+			'production_order_code'=> 'required|max:16|unique:production_orders,production_order_code,:id,id,deleted_at,NULL',
 		]
 	];

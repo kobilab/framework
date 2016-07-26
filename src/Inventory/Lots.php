@@ -29,17 +29,6 @@
 		protected $dates = [ 'created_at', 'updated_at', 'deleted_at' ];
 
 		/**
-		 * Yeni lot için gerekli olan parçaları dönderen method
-		 *
-		 * @todo   İlerki versiyonlarda parçalar için depolanabilir seçeneği olabilir
-		 * @return Collection
-		 */
-		public function getPartsForNewLot()
-		{
-			return TableParts::all();
-		}
-
-		/**
 		 * Lotu kaydeden method
 		 * 
 		 * @return Collection
@@ -69,7 +58,7 @@
 		 */
 		public function lotsOfPart($partId)
 		{
-			return self::where('part_id', $partId)->get();
+			return self::where('part_id', $partId)->where('quantity', '!=', 0)->get();
 		}
 
 		public function getPart()
